@@ -26,15 +26,14 @@ class SnippetsController < ApplicationController
   # 修正後のcreateメソッド
   def create
     @snippet = Snippet.new(snippet_params)
-  
     respond_to do |format|
-  　　if @snippet.save
-  　　　　ConvertWorker.perform_async(@snippet.id)
-  　　　　format.html { redirect_to @snippet, notice: 'Snippet was successfully created.' }
-  　　　　format.json { render :show, status: :created, location: @snippet }
-  　　else
-        format.html { render :new }
-        format.json { render json: @snippet.errors, status: :unprocessable_entity }
+      if @snippet.save
+        ConvertWorker.perform_async(@snippet.id)
+        format.html { redirect_to @snippet, notice: 'Snippet was successfully created.' }
+        format.json { render :show, status: :created, location: @snippet }
+      else
+       format.html { render :new }
+       format.json { render json: @snippet.errors, status: :unprocessable_entity }
       end
     end
   end

@@ -1,3 +1,5 @@
+require 'net/https'
+
 class ConvertWorker
   include Sidekiq::Worker
 
