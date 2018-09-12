@@ -12,7 +12,9 @@
 
 <p>
   <strong>Highlighted code:</strong>
-  <%= @snippet.highlighted_code %>
+  <% if @snippet.highlighted_code.present? %>
+    <%= @snippet.highlighted_code.html_safe %>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_snippet_path(@snippet) %> |
